@@ -33,7 +33,8 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
-    context.Database.Migrate();
+    await context.Database.MigrateAsync();
+    await Seed.SeedData(context); // we recive a notification as delecate 
 }
 catch (Exception ex)
 {
