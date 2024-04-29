@@ -4,9 +4,7 @@ import { ArticlesType } from '@/types/@types.articles';
 // import { signOutAuth } from '@/utils/firebase/firebase-config';
 // import { onAuthStateChangedListener } from '../../utils/firebase/firebase-utils';
 
-const initialState: ArticlesType = {
-  articles: []
-};
+const initialState = { articles: [] } satisfies ArticlesType as ArticlesType
 
 export const articlesSlice = createSlice({
   name: 'articles',

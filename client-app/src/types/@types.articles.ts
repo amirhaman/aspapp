@@ -10,5 +10,5 @@ export type ArticleType = {
 }
 
 export type ArticlesType = {
-  articles: Array<ArticleType>
+  articles: Array<ArticleType>[]
 }
