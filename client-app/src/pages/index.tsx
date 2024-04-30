@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import { GetStaticPaths } from 'next';
-import { Articles } from '@/components/Articles/Articles';
+import { Articles } from '@/components/Activities/Activities';
 // import { getPages, getPageByUri } from '@/lib/wp-services/wpGraphqlservice';
 // import { GetStyleSheet } from '@/lib/wp-services/wpGraphqlservice';
 // import { BlockRendererProvider } from '../utils/wpRenderer/WpRenderer.mjs';

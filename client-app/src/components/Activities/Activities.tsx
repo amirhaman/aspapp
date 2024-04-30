@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { ArticlesType, ArticleType } from '@/types/@types.articles';
+import { ActivitiesType, ActivityType } from '@/types/@types.articles';
 import { axiosGet } from '@/utils/axios-utils';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { getArticles, setArticles } from './Articles.Slice';
-import { ArticleComponent } from './Article/Article';
+import { getArticles, setArticles } from './Activities.Slice';
+import { ArticleComponent } from './Activity/Activity';
 
 export const Articles = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export const Articles = () => {
     <div>
       <ul>
         {articles &&
-          articles?.map((article: ArticleType) => {
+          articles?.map((article: ActivityType) => {
             return (
               <ArticleComponent
                 key={article.id}

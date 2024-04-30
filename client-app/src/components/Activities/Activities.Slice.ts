@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ArticlesType } from '@/types/@types.articles';
+import { ActivitiesType } from '@/types/@types.articles';
 // import { auth } from '@/utils/firebase/firebase-config';
 // import { signOutAuth } from '@/utils/firebase/firebase-config';
 // import { onAuthStateChangedListener } from '../../utils/firebase/firebase-utils';
 
-const initialState = { articles: [] } satisfies ArticlesType as ArticlesType
+const initialState = { articles: [] } satisfies ActivitiesType as ActivitiesType
 
 export const articlesSlice = createSlice({
   name: 'articles',
   initialState,
   reducers: {
-    setArticles: (state : any, action: PayloadAction<ArticlesType>) => {
+    setArticles: (state : any, action: PayloadAction<ActivitiesType>) => {
       state.articles = action.payload;
     },
   },
