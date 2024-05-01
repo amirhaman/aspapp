@@ -7,12 +7,7 @@ import { Articles } from '@/components/Activities/Activities';
 // import { BlockRendererProvider } from '../utils/wpRenderer/WpRenderer.mjs';
 // import WpBlockRenderer from '../components/WpBlockRenderer.js';
 // import CustomLink from '@/components/CustomLink/CustomLink';
-
-interface BlockRendererProviderProps {
-  children: any;
-  internalHref: string;
-  className: string;
-}
+import NavigationComponent from '@/components/NavigationComponent/NavigationComponent';
 
 export default function PageLayout({ page, themeStyleSheet }: { page: any; themeStyleSheet: string }) {
   return (
@@ -22,6 +17,7 @@ export default function PageLayout({ page, themeStyleSheet }: { page: any; theme
         <meta name="description" content={page?.seo?.opengraphDescription}></meta>
         <style type="text/css">{themeStyleSheet}</style>
       </Head>
+      <NavigationComponent />
       <Articles />
     </>
   );
