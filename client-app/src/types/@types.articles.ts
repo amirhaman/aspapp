@@ -7,7 +7,3 @@ export interface ActivityType {
   city: string
   venue: string
 }
-
-export type ActivitiesType = {
-  articles: Array<ActivityType>[]
-}
