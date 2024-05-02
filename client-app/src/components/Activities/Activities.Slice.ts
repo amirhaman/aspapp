@@ -1,4 +1,4 @@
-import { PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, current } from '@reduxjs/toolkit';
 import { ActivityType } from '@/types/@types.articles';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -16,17 +16,6 @@ const initialStateFilters: FilterSortState = {
 
 const initialState: ActivityType[] = [];
 
-interface FilterSortState {
-  filterText: string;
-  sortKey: string | null;
-  sortOrder: 'asc' | 'desc';
-}
-
-const initialFilterSortState: FilterSortState = {
-  filterText: '',
-  sortKey: null,
-  sortOrder: 'asc'
-};
 
 const dataSlice = createSlice({
   name: 'activities',
@@ -34,6 +23,15 @@ const dataSlice = createSlice({
   reducers: {
     setActivities: (state : any, action: PayloadAction<ActivityType[]>) => {
       return state = action.payload;
+    },
+    updateActivity: (state : any, action: PayloadAction<ActivityType[]>) => {
+      const activities  = current(state);
+      const index = activities.findIndex((item: ActivityType) => item.id === action.payload[0].id);
+      if (index !== -1) {
+        state[index] = action.payload[0];
+        return state;
+      }
+
     }
   }
 });
@@ -56,7 +54,7 @@ const filterSortSlice = createSlice({
 });
 
 export const { setFilterText, setSortKey, setSortOrder } = filterSortSlice.actions;
-export const { setActivities } = dataSlice.actions;
+export const { setActivities, updateActivity } = dataSlice.actions;
 
 export const activities = dataSlice.reducer;
 export const activitiesFilterSort = filterSortSlice.reducer

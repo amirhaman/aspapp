@@ -1,14 +1,12 @@
 import React, { useEffect, useMemo } from 'react';
-import { ActivityType } from '@/types/@types.articles';
-import { axiosGet } from '@/utils/axios-utils';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { axiosGet, axiosDelete, axiosEdit } from '@/utils/axios-utils';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { setActivities, setFilterText, setSortKey, setSortOrder } from './Activities.Slice';
-import Activity from '@/components/Activities/Activity/Activity';
-import { Grid } from '@mui/material';
+import Activities from './Activities/Activities';
+import { ActivityType } from '@/types/@types.articles';
 
-export const Articles = () => {
+export default function ActivitiesEntry () {
   const dispatch = useDispatch();
   const activities = useSelector((state: RootState) => state.activities);
   const filterText = useSelector((state: RootState) => state.activitiesFilterSort.filterText);
@@ -33,6 +31,7 @@ export const Articles = () => {
   }, [dispatch]);
 
   const filteredDataMemo = useMemo(() => {
+    console.log("useMemo", activities)
     return activities.filter((item) => item.title.toLowerCase().includes(filterText.toLowerCase()));
   }, [activities, filterText]);
 
@@ -65,46 +64,42 @@ export const Articles = () => {
     dispatch(setSortOrder(event.target.value as 'asc' | 'desc'));
   };
 
+  const handleActivityDelete = (id : string) => {
+    console.log("about to delete an activity", id)
+    axiosDelete(`http://localhost:5000/api/activities/${id}`).then((response) => {
+      console.log("response", response);
+      if (response.data) {
+        const newActivities = activities.filter(activity => activity.id !== id)
+        dispatch(setActivities(newActivities));
+      } else {
+        console.log(`api/activities/Delete response`, response);
+        alert('error Delete api/activities/Delete');
+      }
+    });
+  }
+
+  const handleActivityEdit = async (id: string, activity: ActivityType) => {
+    console.log("body", activity);
+    return await axiosEdit(`http://localhost:5000/api/activities/${id}`, activity).then((response) => {
+      return response;
+    });
+  }
+
   return (
-    <div>
-      <Grid container className='flex flex-row'>
-        <Grid item>
-        <label htmlFor="filterText">Filter:</label>
-        <input id="filterText" type="text" value={filterText} onChange={handleFilterTextChange} />
-        </Grid>
-        <Grid item>
-        <label htmlFor="sortKey">Sort by:</label>
-        <select id="sortKey" value={sortKey || ''} onChange={handleSortChange}>
-          <option value="">None</option>
-          <option value="title">Title</option>
-          <option value="description">Description</option>
-          <option value="date">Date</option>
-          <option value="venue">Venue</option>
-          <option value="city">City</option>
-          <option value="category">category</option>
-        </select>
-        </Grid>
-        <Grid item>
-        <select value={sortOrder} onChange={handleSortOrderChange}>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-        </Grid>
-      </Grid>
-      <ul>
-        {sortedData?.map((activity: ActivityType) => (
-          <Activity
-            key={activity.id}
-            id={activity.id}
-            title={activity.title}
-            date={activity.date}
-            description={activity.description}
-            category={activity.category}
-            city={activity.city}
-            venue={activity.venue}
-          />
-        ))}
-      </ul>
-    </div>
+    <>
+      {sortedData && (
+        <Activities
+          sortedData={sortedData}
+          filterText={filterText}
+          sortKey={sortKey}
+          sortOrder={sortOrder}
+          handleFilterTextChange={handleFilterTextChange}
+          handleSortChange={handleSortChange}
+          handleSortOrderChange={handleSortOrderChange}
+          handleActivityDelete={handleActivityDelete}
+          handleActivityEdit={handleActivityEdit}
+        />
+      )}
+    </>
   );
 };

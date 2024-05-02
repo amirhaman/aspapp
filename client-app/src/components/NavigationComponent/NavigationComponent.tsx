@@ -13,7 +13,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ModeNightIcon from '@mui/icons-material/ModeNight';
 import LightModeIcon from '@mui/icons-material/LightMode';
-// import CustomButton from '../CustomButton/CustomButton';
+import ButtonComponent from '@/components/ButtonComponent/ButtonComponent';
 // import CustomMainMenu from '../CustomMenu/CustomMainMenu/CustomMainMenu';
 // import CustomImage from '../CustomImage/CustomImage';
 
@@ -56,10 +56,10 @@ export default function NavigationComponent() {
           </Grid>
           <Grid item xs={5} md={3} className="w-full flex flex-row justify-end items-center">
             {/* <Box > */}
-            {/* <CustomButton id="ThemeMode_Button" className="m-0" size="small" color="primary" variant="text" ariaLabel="Theme Mode" onClick={() => handleThemeChange()}>
+             <ButtonComponent id="ThemeMode_Button" className="m-0" size="small" color="primary" variant="text" ariaLabel="Theme Mode" onClick={() => handleThemeChange()}>
               {currentTheme === 'darkTheme' ? <LightModeIcon color="secondary" data-animation={true} /> : <ModeNightIcon color="secondary" data-animation={true} />}
-            </CustomButton>
-            {!user ? (
+            </ButtonComponent>
+            {/* {!user ? (
               <CustomButton id="LogIn_Button" className="m-0" size="small" color="primary" variant="text" ariaLabel="login" onClick={() => router.push('/login')}>
                 <LoginIcon color="secondary" data-animation={false} />
               </CustomButton>
