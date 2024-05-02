@@ -1,15 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import articlesSlice from '@/components/Articles/Articles.Slice';
+import { activities, activitiesFilterSort } from '@/features/Activities/Activities.Slice';
 
-export default configureStore({
+const store = configureStore({
   reducer: {
-    articles: articlesSlice,
-    // user: authenticationSlice,
-    // fileUpload: fileUploadSlice,
-    // geoLocation: geoLocationSlice,
+    activities: activities,
+    activitiesFilterSort: activitiesFilterSort,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false,
     }),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export default store;

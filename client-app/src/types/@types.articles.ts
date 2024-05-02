@@ -1,14 +1,9 @@
-
-export type ArticleType = {
-  id : string;
-  title : string;
-  date : Date;
-  description : string;
-  category : string;
-  city : string;
-  venue : string;
-}
-
-export type ArticlesType = {
-  articles: Array<ArticleType>[]
+export interface ActivityType {
+  id: string
+  title: string
+  date: string
+  description: string
+  category: string
+  city: string
+  venue: string
 }
