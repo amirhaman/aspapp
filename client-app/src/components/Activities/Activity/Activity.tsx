@@ -6,6 +6,7 @@ import { ActivityType } from '@/types/@types.articles';
 import { updateActivity } from '../Activities.Slice';
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent';
 import ActivityTextField from './ActivityFields.tsx/ActivityTextField';
+import ActivityAction from '@/components/Activities/Activity/ActivityAction';
 
 type Props = {
   id: string;
@@ -54,7 +55,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
     handleActivityEdit(id, newActivity).then((response: any) => {
       console.log('res', response);
       if (response.hasOwnProperty('data')) {
-        dispatch(dispatch(updateActivity([newActivity])));
+        dispatch(updateActivity([newActivity]));
         setEditMode(!editMode);
       } else {
         alert('something is wrong making the edit call');
@@ -114,49 +115,47 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
             handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'city')}
           />
           <Grid item className="w-full">
-          <ActivityTextField
-            editMode={editMode}
-            variant="body1"
-            name="venue"
-            value={venue}
-            updatedValue={updatedFields.venue}
-            Label="Venue"
-            handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'venue')}
-          />
+            <ActivityTextField
+              editMode={editMode}
+              variant="body1"
+              name="venue"
+              value={venue}
+              updatedValue={updatedFields.venue}
+              Label="Venue"
+              handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'venue')}
+            />
           </Grid>
         </Grid>
         <Grid container>
           <Grid item className="w-full">
-          <ActivityTextField
-            editMode={editMode}
-            variant="body1"
-            name="description"
-            value={description}
-            updatedValue={updatedFields.description}
-            Label="Description"
-            handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'description')}
-          />
+            <ActivityTextField
+              editMode={editMode}
+              variant="body1"
+              name="description"
+              value={description}
+              updatedValue={updatedFields.description}
+              Label="Description"
+              handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'description')}
+            />
           </Grid>
         </Grid>
       </Grid>
       <Grid item className="w-full flex justify-end m-2">
         {editMode ? (
           <Box>
-            <ButtonComponent className="mr-4" id="Save Changes" variant="outlined" color="success" onClick={() => handleFinalActivityEdit(id)}>
+            <ButtonComponent className="mr-4" id="save-changes" variant="outlined" color="success" onClick={() => handleFinalActivityEdit(id)}>
               Save Changes
             </ButtonComponent>
-            <ButtonComponent className="mr-4" id="Cancel" variant="outlined" color="primary" onClick={() => setEditMode(false)}>
+            <ButtonComponent className="mr-4" id="cancel" variant="outlined" color="primary" onClick={() => setEditMode(false)}>
               Cancel
             </ButtonComponent>
           </Box>
         ) : (
-          <ButtonComponent className="mr-4" variant="outlined" color="primary" id="Edit Activity" onClick={() => handlePreActivityEdit(id)}>
+          <ButtonComponent className="mr-4" id="edit-activity" variant="outlined" color="primary" onClick={() => handlePreActivityEdit(id)}>
             Edit Activity
           </ButtonComponent>
         )}
-        <ButtonComponent className="mr-4" id="Delete Activity" variant="outlined" color="warning" onClick={() => handleActivityDelete(id)}>
-          Delete Activity
-        </ButtonComponent>
+        <ActivityAction id="delete-activity" action="delete" className="mr-4" label="Delete Activity" variant="outlined" color="warning" onClick={() => handleActivityDelete(id)} />
       </Grid>
     </Grid>
   );

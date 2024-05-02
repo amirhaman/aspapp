@@ -67,8 +67,7 @@ export default function ActivitiesEntry () {
   const handleActivityDelete = (id : string) => {
     console.log("about to delete an activity", id)
     axiosDelete(`http://localhost:5000/api/activities/${id}`).then((response) => {
-      console.log("response", response);
-      if (response.data) {
+      if (response.hasOwnProperty('data')) {
         const newActivities = activities.filter(activity => activity.id !== id)
         dispatch(setActivities(newActivities));
       } else {

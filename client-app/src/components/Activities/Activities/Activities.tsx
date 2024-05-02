@@ -30,7 +30,7 @@ export default function Activities({
 }: Props) {
   return (
     <div className="max-w-4xl m-auto">
-      <Grid container className="w-full flex flex-row">
+      <Grid container className="w-full flex flex-row m-4">
         <Grid item className='mr-4 min-w-48'>
           <TextFieldComponent
             autoComplete="off"
