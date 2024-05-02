@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { activities, activitiesFilterSort } from '@/components/Activities/Activities.Slice';
+import { activities, activitiesFilterSort } from '@/features/Activities/Activities.Slice';
 
 const store = configureStore({
   reducer: {

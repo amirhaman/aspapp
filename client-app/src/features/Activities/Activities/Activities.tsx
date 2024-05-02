@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityType } from '@/types/@types.articles';
-import Activity from '@/components/Activities/Activity/Activity';
+import Activity from '@/features/Activities/Activity/Activity';
 import { Grid } from '@mui/material';
 import TextFieldComponent from '@/components/FieldComponent/TextFieldComponent/TextFieldComponent';
 import SelectComponent from '@/components/FieldComponent/SelectComponent/SelectComponent';

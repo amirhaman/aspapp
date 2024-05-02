@@ -6,7 +6,7 @@ import { ActivityType } from '@/types/@types.articles';
 import { updateActivity } from '../Activities.Slice';
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent';
 import ActivityTextField from './ActivityFields.tsx/ActivityTextField';
-import ActivityAction from '@/components/Activities/Activity/ActivityAction';
+import ActivityAction from '@/features/Activities/Activity/ActivityAction';
 
 type Props = {
   id: string;
