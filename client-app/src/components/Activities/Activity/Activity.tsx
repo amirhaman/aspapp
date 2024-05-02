@@ -1,11 +1,11 @@
 import React, { useState, useReducer } from 'react';
 import { RootState } from '@/app/store';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActivityType } from '@/types/@types.articles';
 import { updateActivity } from '../Activities.Slice';
-import TextFieldComponent from '@/components/FieldComponent/TextFieldComponent/TextFieldComponent';
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent';
+import ActivityTextField from './ActivityFields.tsx/ActivityTextField';
 
 type Props = {
   id: string;
@@ -62,147 +62,80 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
     });
   };
 
+  const handleFieldChangeReducer = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
+    const updatedObject = { [field]: e.target.value };
+    transmit({ type: 'UPDATE_OBJECT', payload: updatedObject });
+  };
+
   return (
     <Grid item className="w-full flex flex-col p-3 mb-2 border-2 border-white rounded-lg border-solid">
       <Grid item>
-        {editMode ? (
-          <TextFieldComponent
-            autoComplete="off"
-            className=""
-            id="activity-title"
-            ariaLabel="Title"
-            name="title"
-            value={updatedFields.title}
-            type="text"
-            color="primary"
-            label="Title"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const updatedObject = { title: e.target.value };
-              transmit({ type: 'UPDATE_OBJECT', payload: updatedObject });
-            }}
-          />
-        ) : (
-          <Typography className="" color="primary" variant="h3">
-            {title}
-          </Typography>
-        )}
+        <ActivityTextField
+          editMode={editMode}
+          variant="h1"
+          name="title"
+          value={title}
+          updatedValue={updatedFields.title}
+          Label="Title"
+          handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'title')}
+        />
         <Grid container>
           <Grid item className="mr-4">
-            {editMode ? (
-              <TextFieldComponent
-                autoComplete="off"
-                className=""
-                id="activity-category"
-                ariaLabel="Category"
-                name="category"
-                value={updatedFields.category}
-                type="text"
-                color="primary"
-                label="Category"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  const updatedObject = { category: e.target.value };
-                  transmit({ type: 'UPDATE_OBJECT', payload: updatedObject });
-                }}
-              />
-            ) : (
-              <Typography className="mr-2" color="primary" variant="body1">
-                Category: {category}
-              </Typography>
-            )}
+            <ActivityTextField
+              editMode={editMode}
+              variant="body1"
+              name="category"
+              value={category}
+              updatedValue={updatedFields.category}
+              Label="Category"
+              handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'category')}
+            />
           </Grid>
           <Grid item>
-            {editMode ? (
-              <TextFieldComponent
-                autoComplete="off"
-                className=""
-                id="activity-date"
-                ariaLabel="Date"
-                name="date"
-                value={updatedFields.date}
-                type="text"
-                color="primary"
-                label="Date"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  const updatedObject = { date: e.target.value };
-                  transmit({ type: 'UPDATE_OBJECT', payload: updatedObject });
-                }}
-              />
-            ) : (
-              <Typography className="mr-2" color="primary" variant="body1">
-                Date/Time: {date}
-              </Typography>
-            )}
+            <ActivityTextField
+              editMode={editMode}
+              variant="body1"
+              name="date"
+              value={date}
+              updatedValue={updatedFields.date}
+              Label="Date/Time"
+              handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'date')}
+            />
           </Grid>
         </Grid>
         <Grid container className="w-full">
-          {editMode ? (
-            <TextFieldComponent
-              autoComplete="off"
-              className=""
-              id="activity-city"
-              ariaLabel="City"
-              name="city"
-              value={updatedFields.city}
-              type="text"
-              color="primary"
-              label="City"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                const updatedObject = { city: e.target.value };
-                transmit({ type: 'UPDATE_OBJECT', payload: updatedObject });
-              }}
-            />
-          ) : (
-            <Typography className="mr-2" color="primary" variant="body1">
-              City: {city}
-            </Typography>
-          )}
+          <ActivityTextField
+            editMode={editMode}
+            variant="body1"
+            name="city"
+            value={city}
+            updatedValue={updatedFields.city}
+            Label="City"
+            handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'city')}
+          />
           <Grid item className="w-full">
-            {editMode ? (
-              <TextFieldComponent
-                autoComplete="off"
-                className=""
-                id="activity-venue"
-                ariaLabel="Venue"
-                name="venue"
-                value={updatedFields.venue}
-                type="text"
-                color="primary"
-                label="Venue"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  const updatedObject = { venue: e.target.value };
-                  transmit({ type: 'UPDATE_OBJECT', payload: updatedObject });
-                }}
-              />
-            ) : (
-              <Typography className="mr-2" color="primary" variant="body1">
-                Venue: {venue}
-              </Typography>
-            )}
+          <ActivityTextField
+            editMode={editMode}
+            variant="body1"
+            name="venue"
+            value={venue}
+            updatedValue={updatedFields.venue}
+            Label="Venue"
+            handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'venue')}
+          />
           </Grid>
         </Grid>
         <Grid container>
           <Grid item className="w-full">
-            {editMode ? (
-              <TextFieldComponent
-                autoComplete="off"
-                className=""
-                id="activity-description"
-                ariaLabel="Description"
-                name="description"
-                value={updatedFields.description}
-                type="text"
-                color="primary"
-                label="Description"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  const updatedObject = { description: e.target.value };
-                  transmit({ type: 'UPDATE_OBJECT', payload: updatedObject });
-                }}
-              />
-            ) : (
-              <Typography className="mr-2" color="primary" variant="body1">
-                {description}
-              </Typography>
-            )}
+          <ActivityTextField
+            editMode={editMode}
+            variant="body1"
+            name="description"
+            value={description}
+            updatedValue={updatedFields.description}
+            Label="Description"
+            handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'description')}
+          />
           </Grid>
         </Grid>
       </Grid>
