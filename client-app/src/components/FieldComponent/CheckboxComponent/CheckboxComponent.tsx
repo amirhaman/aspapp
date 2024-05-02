@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -23,7 +24,7 @@ export default function CheckboxComponent({ label, onChange, value, name, checke
         <FormControlLabel
           style={{ margin: 0 }}
           control={<Checkbox className={hasError ? 'has-error' : ''} checked={checked} value={value} id={id} name={name} color="secondary" onChange={onChange} aria-label={ariaLabel}/>}
-          label={<Typography component="p"><a href="/">{label}</a></Typography>}
+          label={<Typography component="p"><Link href="/">{label}</Link></Typography>}
         />
       </FormGroup>
     </StyledCustomGlobalField>
