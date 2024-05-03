@@ -3,9 +3,9 @@ import { RootState } from '@/app/store';
 import { Box, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActivityType } from '@/types/@types.articles';
-import { updateActivity } from '../Activities.Slice';
+import { updateActivity } from '@/features/Activities/Activities.Slice';
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent';
-import ActivityTextField from './ActivityFields.tsx/ActivityTextField';
+import ActivityTextField from '@/features/Activities/Activity/ActivityFields/ActivityTextField';
 import ActivityAction from '@/features/Activities/Activity/ActivityAction';
 
 type Props = {
@@ -74,6 +74,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
         <ActivityTextField
           editMode={editMode}
           variant="h1"
+          type="text"
           name="title"
           value={title}
           updatedValue={updatedFields.title}
@@ -85,6 +86,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
             <ActivityTextField
               editMode={editMode}
               variant="body1"
+              type="text"
               name="category"
               value={category}
               updatedValue={updatedFields.category}
@@ -96,6 +98,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
             <ActivityTextField
               editMode={editMode}
               variant="body1"
+              type="text"
               name="date"
               value={date}
               updatedValue={updatedFields.date}
@@ -108,6 +111,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
           <ActivityTextField
             editMode={editMode}
             variant="body1"
+            type="text"
             name="city"
             value={city}
             updatedValue={updatedFields.city}
@@ -118,6 +122,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
             <ActivityTextField
               editMode={editMode}
               variant="body1"
+              type="text"
               name="venue"
               value={venue}
               updatedValue={updatedFields.venue}
@@ -131,6 +136,8 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
             <ActivityTextField
               editMode={editMode}
               variant="body1"
+              type="textarea"
+              rows={5}
               name="description"
               value={description}
               updatedValue={updatedFields.description}

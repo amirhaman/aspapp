@@ -1,9 +1,10 @@
 import React from 'react';
 import { ActivityType } from '@/types/@types.articles';
 import Activity from '@/features/Activities/Activity/Activity';
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import TextFieldComponent from '@/components/FieldComponent/TextFieldComponent/TextFieldComponent';
 import SelectComponent from '@/components/FieldComponent/SelectComponent/SelectComponent';
+import ActivityCreate from '@/features/Activities/Activity/ActivityCreate/ActivityCreate';
 
 type Props = {
   sortedData: ActivityType[];
@@ -15,6 +16,7 @@ type Props = {
   handleSortOrderChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleActivityDelete: (id: string) => void;
   handleActivityEdit: (id: string, activity: ActivityType) => Promise<any>;
+  handleActivityCreate: (activity: ActivityType) => Promise<any>;
 };
 
 export default function Activities({
@@ -27,10 +29,11 @@ export default function Activities({
   handleSortOrderChange,
   handleActivityDelete,
   handleActivityEdit,
+  handleActivityCreate
 }: Props) {
   return (
-    <div className="max-w-4xl m-auto">
-      <Grid container className="w-full flex flex-row m-4">
+    <Box className="max-w-4xl m-auto">
+      <Grid container className="w-full flex flex-row items-center m-4">
         <Grid item className='mr-4 min-w-48'>
           <TextFieldComponent
             autoComplete="off"
@@ -78,6 +81,9 @@ export default function Activities({
             ]}
           />
         </Grid>
+        <Grid item className='flex ml-auto'>
+            <ActivityCreate handleActivityCreate={handleActivityCreate}/>
+        </Grid>
       </Grid>
       <Grid container className="w-full flex flex-col">
         {sortedData?.map((activity: ActivityType) => (
@@ -95,6 +101,6 @@ export default function Activities({
           />
         ))}
       </Grid>
-    </div>
+    </Box>
   );
 }

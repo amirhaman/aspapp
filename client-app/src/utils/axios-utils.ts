@@ -35,3 +35,17 @@ export const axiosEdit = async (url: string, body: ActivityType) => {
     return error;
   })
 }
+
+export const axiosCreate = async (url: string, body: ActivityType) => {
+  const { id, ...newActivity } = body;
+  return await axios
+  .post(url, newActivity)
+  .then((response) => {
+    console.log(response)
+    return response;
+  })
+  .catch((error) => {
+    console.log(error)
+    return error;
+  })
+}

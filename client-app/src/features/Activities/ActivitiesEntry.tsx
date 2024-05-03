@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { axiosGet, axiosDelete, axiosEdit } from '@/utils/axios-utils';
+import { axiosGet, axiosDelete, axiosEdit, axiosCreate } from '@/utils/axios-utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { setActivities, setFilterText, setSortKey, setSortOrder } from './Activities.Slice';
@@ -78,8 +78,13 @@ export default function ActivitiesEntry () {
   }
 
   const handleActivityEdit = async (id: string, activity: ActivityType) => {
-    console.log("body", activity);
     return await axiosEdit(`http://localhost:5000/api/activities/${id}`, activity).then((response) => {
+      return response;
+    });
+  }
+
+  const handleActivityCreate = async (activity: ActivityType) => {
+    return await axiosCreate(`http://localhost:5000/api/activities/`, activity).then((response) => {
       return response;
     });
   }
@@ -97,6 +102,7 @@ export default function ActivitiesEntry () {
           handleSortOrderChange={handleSortOrderChange}
           handleActivityDelete={handleActivityDelete}
           handleActivityEdit={handleActivityEdit}
+          handleActivityCreate={handleActivityCreate}
         />
       )}
     </>
