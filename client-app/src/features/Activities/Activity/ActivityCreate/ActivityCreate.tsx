@@ -14,7 +14,6 @@ type Props = {
 };
 
 const reducer = (state: any, action: any) => {
-  console.log('state, action.payload', state, action.payload);
   switch (action.type) {
     case 'UPDATE_OBJECT':
       return { ...state, ...action.payload };
@@ -67,7 +66,6 @@ export const ActivityCreate = ({ handleActivityCreate }: Props) => {
   }
 
   const handleClose = () => {
-    console.log("initialState", initialState)
     transmit({ type: 'UPDATE_OBJECT', payload: initialState })
     setCreateModalStatus(false)
   }

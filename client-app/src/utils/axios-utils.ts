@@ -41,11 +41,9 @@ export const axiosCreate = async (url: string, body: ActivityType) => {
   return await axios
   .post(url, newActivity)
   .then((response) => {
-    console.log(response)
     return response;
   })
   .catch((error) => {
-    console.log(error)
     return error;
   })
 }

@@ -19,7 +19,6 @@ export const ActivityAction = ({ id, action, className, label, variant, color, o
   const handleAction = () => {
     switch (action) {
       case 'delete':
-        console.log('about to delete the activity', action);
         setEditModalStatus(true);
         break;
       default:
