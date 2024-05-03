@@ -5,6 +5,7 @@ import { Grid, Box } from '@mui/material';
 import TextFieldComponent from '@/components/FieldComponent/TextFieldComponent/TextFieldComponent';
 import SelectComponent from '@/components/FieldComponent/SelectComponent/SelectComponent';
 import ActivityCreate from '@/features/Activities/Activity/ActivityCreate/ActivityCreate';
+import {AxiosResponse} from 'axios';
 
 type Props = {
   sortedData: ActivityType[];
@@ -14,9 +15,9 @@ type Props = {
   handleFilterTextChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSortChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleSortOrderChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleActivityDelete: (id: string) => void;
-  handleActivityEdit: (id: string, activity: ActivityType) => Promise<any>;
-  handleActivityCreate: (activity: ActivityType) => Promise<any>;
+  handleActivityDelete: (id: string) => Promise<AxiosResponse>;
+  handleActivityEdit: (id: string, activity: ActivityType) => Promise<AxiosResponse>;
+  handleActivityCreate: (activity: ActivityType) => Promise<AxiosResponse>;
 };
 
 export default function Activities({

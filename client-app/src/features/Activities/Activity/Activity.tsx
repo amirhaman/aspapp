@@ -3,10 +3,11 @@ import { RootState } from '@/app/store';
 import { Box, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActivityType } from '@/types/@types.articles';
-import { updateActivity } from '@/features/Activities/Activities.Slice';
+import { setActivities, updateActivity } from '@/features/Activities/Activities.Slice';
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent';
 import ActivityTextField from '@/features/Activities/Activity/ActivityFields/ActivityTextField';
 import ActivityAction from '@/features/Activities/Activity/ActivityAction';
+import {AxiosResponse} from 'axios';
 
 type Props = {
   id: string;
@@ -16,8 +17,8 @@ type Props = {
   category: string;
   city: string;
   venue: string;
-  handleActivityDelete: (id: string) => void;
-  handleActivityEdit: (id: string, activity: ActivityType) => Promise<any>;
+  handleActivityDelete: (id: string) => Promise<AxiosResponse>;
+  handleActivityEdit: (id: string, activity: ActivityType) => Promise<AxiosResponse>;
 };
 
 const reducer = (state: any, action: any) => {
@@ -60,6 +61,17 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
       }
     });
   };
+
+  const handleFinalActivityDelete = async (id: string) => {
+    handleActivityDelete(id).then((response) => {
+      if (response.hasOwnProperty('data')) {
+        const newActivities = activities.filter(activity => activity.id !== id)
+        dispatch(setActivities(newActivities));
+      } else {
+        alert('error deleting activities');
+      }
+    })
+  }
 
   const handleFieldChangeReducer = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     const updatedObject = { [field]: e.target.value };
@@ -160,7 +172,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
             Edit Activity
           </ButtonComponent>
         )}
-        <ActivityAction id="delete-activity" action="delete" className="mr-4" label="Delete Activity" variant="outlined" color="warning" onClick={() => handleActivityDelete(id)} />
+        <ActivityAction id="delete-activity" action="delete" className="mr-4" label="Delete Activity" variant="outlined" color="warning" onClick={() => handleFinalActivityDelete(id)} />
       </Grid>
     </Grid>
   );

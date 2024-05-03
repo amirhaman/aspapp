@@ -61,14 +61,9 @@ export default function ActivitiesEntry () {
     dispatch(setSortOrder(event.target.value as 'asc' | 'desc'));
   };
 
-  const handleActivityDelete = (id : string) => {
-    axiosDelete(`http://localhost:5000/api/activities/${id}`).then((response) => {
-      if (response.hasOwnProperty('data')) {
-        const newActivities = activities.filter(activity => activity.id !== id)
-        dispatch(setActivities(newActivities));
-      } else {
-        alert('error deleting activities');
-      }
+  const handleActivityDelete = async (id : string) => {
+    return await axiosDelete(`http://localhost:5000/api/activities/${id}`).then((response) => {
+      return response;
     });
   }
 
