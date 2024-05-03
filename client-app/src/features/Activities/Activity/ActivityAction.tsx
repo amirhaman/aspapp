@@ -10,7 +10,7 @@ type Props = {
   label: string;
   variant: 'outlined';
   color: 'warning' | 'success' | 'primary';
-  onClick: (id: string) => void;
+  onClick: (id: string) => Promise<any>;
 };
 
 export const ActivityAction = ({ id, action, className, label, variant, color, onClick }: Props) => {
