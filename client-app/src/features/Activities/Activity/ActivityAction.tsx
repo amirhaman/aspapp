@@ -14,27 +14,27 @@ type Props = {
 };
 
 export const ActivityAction = ({ id, action, className, label, variant, color, onClick }: Props) => {
-  const [modalStatus, setModalStatus] = useState(false);
+  const [editModalStatus, setEditModalStatus] = useState(false);
 
   const handleAction = () => {
     switch (action) {
       case 'delete':
         console.log('about to delete the activity', action);
-        setModalStatus(true);
+        setEditModalStatus(true);
         break;
       default:
         console.log('no action matched');
     }
   };
 
-  const handleClose = () => setModalStatus(false);
+  const handleClose = () => setEditModalStatus(false);
 
   return (
     <Box>
       <ButtonComponent className={className} id={id} variant={variant} color={color} onClick={() => handleAction()}>
         {label}
       </ButtonComponent>
-      <ModalComponent open={modalStatus} onClose={handleClose} ariaLabelledBy="modal-activity-confirm-action" ariaDescribedBy="modal-activity-confirm-action">
+      <ModalComponent open={editModalStatus} onClose={handleClose} ariaLabelledBy="modal-activity-confirm-action" ariaDescribedBy="modal-activity-confirm-action">
         <Grid container className="w-full max-w-120 h-full max-h-120 flex flex-col justify-center items-center">
           <Grid item className="flex flex-row">
             <Typography id="modal-modal-title" variant="h6" component="h2">

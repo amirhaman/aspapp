@@ -5,6 +5,8 @@ import TextFieldComponent from '@/components/FieldComponent/TextFieldComponent/T
 type Props = {
   editMode: boolean;
   variant: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "body1";
+  type: "text" | "textarea";
+  rows?: number
   name: string;
   value: string;
   updatedValue: string;
@@ -12,7 +14,7 @@ type Props = {
   handleFieldChangeReducer: (e: React.ChangeEvent<HTMLInputElement>, field: string) => void
 }
 
-export const ActivityTextField = ({editMode, variant, name, value, updatedValue, Label, handleFieldChangeReducer} : Props) => {
+export const ActivityTextField = ({editMode, variant, type, rows, name, value, updatedValue, Label, handleFieldChangeReducer} : Props) => {
   return (
     editMode ? (
       <TextFieldComponent
@@ -22,7 +24,8 @@ export const ActivityTextField = ({editMode, variant, name, value, updatedValue,
         ariaLabel={Label}
         name={name}
         value={updatedValue}
-        type="text"
+        type={type}
+        {...(rows ? { rows: rows, multiline: true } : null)}
         color="primary"
         label={Label}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, name)}
