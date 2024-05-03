@@ -41,7 +41,6 @@ const filterSortSlice = createSlice({
   initialState: initialStateFilters,
   reducers: {
     setFilterText: (state, action: PayloadAction<string>) => {
-      console.log("setting up filter text",action.payload )
       state.filterText = action.payload;
     },
     setSortKey: (state, action: PayloadAction<string | null>) => {

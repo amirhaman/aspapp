@@ -21,7 +21,6 @@ type Props = {
 };
 
 const reducer = (state: any, action: any) => {
-  console.log('state, action.payload', state, action.payload);
   switch (action.type) {
     case 'UPDATE_OBJECT':
       return { ...state, ...action.payload };
@@ -53,12 +52,11 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
     const newActivity: ActivityType = { ...activity[0], ...updatedFields };
 
     handleActivityEdit(id, newActivity).then((response: any) => {
-      console.log('res', response);
       if (response.hasOwnProperty('data')) {
         dispatch(updateActivity([newActivity]));
         setEditMode(!editMode);
       } else {
-        alert('something is wrong making the edit call');
+        alert('error editing activities');
       }
     });
   };

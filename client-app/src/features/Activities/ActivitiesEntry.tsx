@@ -20,8 +20,7 @@ export default function ActivitiesEntry () {
         dispatch(setActivities(response.data));
         // setFilteredData(response.data);
       } else {
-        console.log(`api/activities response`, response);
-        alert('error fetching api/activities');
+        alert('error getting activities');
       }
     });
     return () => {
@@ -31,7 +30,6 @@ export default function ActivitiesEntry () {
   }, [dispatch]);
 
   const filteredDataMemo = useMemo(() => {
-    console.log("useMemo", activities)
     return activities.filter((item) => item.title.toLowerCase().includes(filterText.toLowerCase()));
   }, [activities, filterText]);
 
@@ -52,7 +50,6 @@ export default function ActivitiesEntry () {
   }, [filteredDataMemo, sortKey, sortOrder]);
 
   const handleFilterTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     dispatch(setFilterText(event.target.value));
   };
 
@@ -65,14 +62,12 @@ export default function ActivitiesEntry () {
   };
 
   const handleActivityDelete = (id : string) => {
-    console.log("about to delete an activity", id)
     axiosDelete(`http://localhost:5000/api/activities/${id}`).then((response) => {
       if (response.hasOwnProperty('data')) {
         const newActivities = activities.filter(activity => activity.id !== id)
         dispatch(setActivities(newActivities));
       } else {
-        console.log(`api/activities/Delete response`, response);
-        alert('error Delete api/activities/Delete');
+        alert('error deleting activities');
       }
     });
   }
