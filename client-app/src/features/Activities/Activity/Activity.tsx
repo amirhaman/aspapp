@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 import { RootState } from '@/app/store';
 import { Box, Grid } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +8,8 @@ import { setActivities, updateActivity } from '@/features/Activities/Activities.
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent';
 import ActivityTextField from '@/features/Activities/Activity/ActivityFields/ActivityTextField';
 import ActivityAction from '@/features/Activities/Activity/ActivityAction';
-import {AxiosResponse} from 'axios';
+import ActivityDateTimePicker from './ActivityFields/ActivityDateTimePicker/ActivityDateTimePicker';
+import { AxiosResponse } from 'axios';
 
 type Props = {
   id: string;
@@ -65,16 +67,17 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
   const handleFinalActivityDelete = async (id: string) => {
     handleActivityDelete(id).then((response) => {
       if (response.hasOwnProperty('data')) {
-        const newActivities = activities.filter(activity => activity.id !== id)
+        const newActivities = activities.filter((activity) => activity.id !== id);
         dispatch(setActivities(newActivities));
       } else {
         alert('error deleting activities');
       }
-    })
-  }
+    });
+  };
 
-  const handleFieldChangeReducer = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
-    const updatedObject = { [field]: e.target.value };
+  const handleFieldChangeReducer = (e: React.ChangeEvent<HTMLInputElement> | any, field: string) => {
+    const value = field === 'date' ? dayjs(e.$d).format('YYYY-MM-DDTHH:mm:ss') : e.target.value;
+    const updatedObject = { [field]: value };
     transmit({ type: 'UPDATE_OBJECT', payload: updatedObject });
   };
 
@@ -88,7 +91,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
           name="title"
           value={title}
           updatedValue={updatedFields.title}
-          Label="Title"
+          label="Title"
           handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'title')}
         />
         <Grid container>
@@ -100,20 +103,19 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
               name="category"
               value={category}
               updatedValue={updatedFields.category}
-              Label="Category"
+              label="Category"
               handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'category')}
             />
           </Grid>
-          <Grid item>
-            <ActivityTextField
+          <Grid item className="flex items-center">
+            <ActivityDateTimePicker
               editMode={editMode}
               variant="body1"
-              type="text"
-              name="date"
               value={date}
               updatedValue={updatedFields.date}
-              Label="Date/Time"
-              handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'date')}
+              name="date"
+              label="Date/Time"
+              onChange={(e: any) => handleFieldChangeReducer(e, 'date')}
             />
           </Grid>
         </Grid>
@@ -125,7 +127,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
             name="city"
             value={city}
             updatedValue={updatedFields.city}
-            Label="City"
+            label="City"
             handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'city')}
           />
           <Grid item className="w-full">
@@ -136,7 +138,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
               name="venue"
               value={venue}
               updatedValue={updatedFields.venue}
-              Label="Venue"
+              label="Venue"
               handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'venue')}
             />
           </Grid>
@@ -151,7 +153,7 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
               name="description"
               value={description}
               updatedValue={updatedFields.description}
-              Label="Description"
+              label="Description"
               handleFieldChangeReducer={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, 'description')}
             />
           </Grid>
@@ -172,7 +174,15 @@ const Activity = ({ id, title, date, description, category, city, venue, handleA
             Edit Activity
           </ButtonComponent>
         )}
-        <ActivityAction id="delete-activity" action="delete" className="mr-4" label="Delete Activity" variant="outlined" color="warning" onClick={() => handleFinalActivityDelete(id)} />
+        <ActivityAction
+          id="delete-activity"
+          action="delete"
+          className="mr-4"
+          label="Delete Activity"
+          variant="outlined"
+          color="warning"
+          onClick={() => handleFinalActivityDelete(id)}
+        />
       </Grid>
     </Grid>
   );

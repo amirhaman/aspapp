@@ -6,7 +6,7 @@ import { setActivities, setFilterText, setSortKey, setSortOrder } from './Activi
 import Activities from './Activities/Activities';
 import { ActivityType } from '@/types/@types.articles';
 
-export default function ActivitiesEntry () {
+export default function ActivitiesEntry() {
   const dispatch = useDispatch();
   const activities = useSelector((state: RootState) => state.activities);
   const filterText = useSelector((state: RootState) => state.activitiesFilterSort.filterText);
@@ -15,10 +15,9 @@ export default function ActivitiesEntry () {
 
   useEffect(() => {
     const abortController = new AbortController();
-    axiosGet(`http://localhost:5000/api/activities`, abortController.signal).then((response) => {
+    handleGetActivities(abortController.signal).then((response) => {
       if (response?.data) {
         dispatch(setActivities(response.data));
-        // setFilteredData(response.data);
       } else {
         alert('error getting activities');
       }
@@ -61,23 +60,29 @@ export default function ActivitiesEntry () {
     dispatch(setSortOrder(event.target.value as 'asc' | 'desc'));
   };
 
-  const handleActivityDelete = async (id : string) => {
-    return await axiosDelete(`http://localhost:5000/api/activities/${id}`).then((response) => {
+  const handleGetActivities = async (signal?: any) => {
+    return await axiosGet(`${process.env.NEXT_PUBLIC_API_URL}/api/activities`, signal).then((response) => {
       return response;
     });
-  }
+  };
+
+  const handleActivityDelete = async (id: string) => {
+    return await axiosDelete(`${process.env.NEXT_PUBLIC_API_URL}/api/activities/${id}`).then((response) => {
+      return response;
+    });
+  };
 
   const handleActivityEdit = async (id: string, activity: ActivityType) => {
-    return await axiosEdit(`http://localhost:5000/api/activities/${id}`, activity).then((response) => {
+    return await axiosEdit(`${process.env.NEXT_PUBLIC_API_URL}/api/activities/${id}`, activity).then((response) => {
       return response;
     });
-  }
+  };
 
   const handleActivityCreate = async (activity: ActivityType) => {
-    return await axiosCreate(`http://localhost:5000/api/activities/`, activity).then((response) => {
+    return await axiosCreate(`${process.env.NEXT_PUBLIC_API_URL}/api/activities/`, activity).then((response) => {
       return response;
     });
-  }
+  };
 
   return (
     <>
@@ -90,6 +95,7 @@ export default function ActivitiesEntry () {
           handleFilterTextChange={handleFilterTextChange}
           handleSortChange={handleSortChange}
           handleSortOrderChange={handleSortOrderChange}
+          handleGetActivities={handleGetActivities}
           handleActivityDelete={handleActivityDelete}
           handleActivityEdit={handleActivityEdit}
           handleActivityCreate={handleActivityCreate}
@@ -97,4 +103,4 @@ export default function ActivitiesEntry () {
       )}
     </>
   );
-};
+}
