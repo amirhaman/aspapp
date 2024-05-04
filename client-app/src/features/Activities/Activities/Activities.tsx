@@ -5,7 +5,7 @@ import { Grid, Box } from '@mui/material';
 import TextFieldComponent from '@/components/FieldComponent/TextFieldComponent/TextFieldComponent';
 import SelectComponent from '@/components/FieldComponent/SelectComponent/SelectComponent';
 import ActivityCreate from '@/features/Activities/Activity/ActivityCreate/ActivityCreate';
-import {AxiosResponse} from 'axios';
+import { AxiosResponse } from 'axios';
 
 type Props = {
   sortedData: ActivityType[];
@@ -15,6 +15,7 @@ type Props = {
   handleFilterTextChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSortChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleSortOrderChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleGetActivities: () => Promise<AxiosResponse>;
   handleActivityDelete: (id: string) => Promise<AxiosResponse>;
   handleActivityEdit: (id: string, activity: ActivityType) => Promise<AxiosResponse>;
   handleActivityCreate: (activity: ActivityType) => Promise<AxiosResponse>;
@@ -28,14 +29,15 @@ export default function Activities({
   handleFilterTextChange,
   handleSortChange,
   handleSortOrderChange,
+  handleGetActivities,
   handleActivityDelete,
   handleActivityEdit,
-  handleActivityCreate
+  handleActivityCreate,
 }: Props) {
   return (
-    <Box className="max-w-4xl m-auto">
-      <Grid container className="w-full flex flex-row items-center m-4">
-        <Grid item className='mr-4 min-w-48'>
+    <Box className="max-w-4xl m-auto p-2">
+      <Grid container className="w-full flex flex-row items-center my-4 ">
+        <Grid item className="mr-4 min-w-48">
           <TextFieldComponent
             autoComplete="off"
             className="class-name"
@@ -49,7 +51,7 @@ export default function Activities({
             onChange={handleFilterTextChange}
           />
         </Grid>
-        <Grid item className='mr-4 min-w-48'>
+        <Grid item className="mr-4 min-w-48">
           <SelectComponent
             id="sort-key-activities"
             label="Sort by"
@@ -68,7 +70,7 @@ export default function Activities({
             ]}
           />
         </Grid>
-        <Grid item className='min-w-48'>
+        <Grid item className="min-w-48">
           <SelectComponent
             id="sort-activities"
             label="Sort Order"
@@ -82,8 +84,8 @@ export default function Activities({
             ]}
           />
         </Grid>
-        <Grid item className='flex ml-auto'>
-            <ActivityCreate handleActivityCreate={handleActivityCreate}/>
+        <Grid item className="flex ml-auto">
+          <ActivityCreate handleActivityCreate={handleActivityCreate} handleGetActivities={handleGetActivities} />
         </Grid>
       </Grid>
       <Grid container className="w-full flex flex-col">

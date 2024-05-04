@@ -1,3 +1,4 @@
+import '@/app/global.css';
 import { ReactElement, ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import store from '../app/store';
@@ -6,7 +7,6 @@ import { AppProps } from 'next/app';
 import { AppCacheProvider } from '@mui/material-nextjs/v13-pagesRouter';
 import ThemeCustomModeProvider from '../../src/styles/ThemeContext';
 // import '../utils/wpRenderer/css/style.css'; // important
-import '@/app/global.css';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;

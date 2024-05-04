@@ -1,6 +1,6 @@
 import { Components, Theme } from "@mui/material";
 
-const GlobalStyledMuiTypography: Components<Theme>["MuiTypography"] = {
+const StyledMuiTypography: Components<Theme>["MuiTypography"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({
       transition: theme.transitions.create(['color', 'transform'], {
@@ -43,4 +43,4 @@ const GlobalStyledMuiTypography: Components<Theme>["MuiTypography"] = {
   },
 };
 
-export default GlobalStyledMuiTypography;
+export default StyledMuiTypography;

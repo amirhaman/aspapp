@@ -1,8 +1,12 @@
 import { createTheme } from "@mui/material/styles";
-import { GlobalThemeComponent } from "./ThemeComponents/GlobalThemeComponent";
-import GlobalStyledIcons from "./ThemeComponents/GlobalStyledIcons";
-import StyledMuiList from "./ThemeComponents/GlobalStyledMuiList";
-import GlobalStyledMuiTypography from "./ThemeComponents/GlobalStyledMuiTypography"
+import GlobalThemeComponent from "@/styles/ThemeFactory/ThemeComponents/GlobalThemeComponent";
+import StyledMuiIcons from "@/styles/ThemeFactory/ThemeComponents/GlobalStyledMuiIcons";
+import StyledMuiList from "@/styles/ThemeFactory/ThemeComponents/GlobalStyledMuiList";
+import StyledMuiTypography from "@/styles/ThemeFactory/ThemeComponents/GlobalStyledMuiTypography";
+import StyledMuiPickersToolbar from "@/styles/ThemeFactory/ThemeComponents/GlobalStyledMuiPickersToolbar";
+import StyledMuiTabs from "@/styles/ThemeFactory/ThemeComponents/GlobalStyledMuiTabs";
+import StyledMuiDateCalendar from '@/styles/ThemeFactory/ThemeComponents/GlobalStyledMuiDateCalendar';
+import StyledMuiDialogActions from '@/styles/ThemeFactory/ThemeComponents/GlobalStyledMuiDialogActions';
 
 
 export const ThemeFactory = (props: any) =>
@@ -58,7 +62,11 @@ export const ThemeFactory = (props: any) =>
         styleOverrides: () => GlobalThemeComponent(props),
       },
       MuiList : StyledMuiList,
-      MuiSvgIcon: GlobalStyledIcons,
-      MuiTypography: GlobalStyledMuiTypography,
+      MuiSvgIcon: StyledMuiIcons,
+      MuiTypography: StyledMuiTypography,
+      MuiPickersToolbar: StyledMuiPickersToolbar,
+      MuiTabs: StyledMuiTabs,
+      MuiDateCalendar: StyledMuiDateCalendar,
+      MuiDialogActions: StyledMuiDialogActions
     },
   });

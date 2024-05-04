@@ -10,29 +10,29 @@ type Props = {
   name: string;
   value: string;
   updatedValue: string;
-  Label: string;
+  label: string;
   handleFieldChangeReducer: (e: React.ChangeEvent<HTMLInputElement>, field: string) => void
 }
 
-export const ActivityTextField = ({editMode, variant, type, rows, name, value, updatedValue, Label, handleFieldChangeReducer} : Props) => {
+export const ActivityTextField = ({editMode, variant, type, rows, name, value, updatedValue, label, handleFieldChangeReducer} : Props) => {
   return (
     editMode ? (
       <TextFieldComponent
         autoComplete="off"
         className=""
         id={`activity-${name}`}
-        ariaLabel={Label}
+        ariaLabel={label}
         name={name}
         value={updatedValue}
         type={type}
         {...(rows ? { rows: rows, multiline: true } : null)}
         color="primary"
-        label={Label}
+        label={label}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChangeReducer(e, name)}
       />
     ) : (
       <Typography className={variant === "h1" ? "mb-4" : "mb-2"} color="primary" variant={variant}>
-        {Label}: {value}
+        {(label === "Title" || label === "Description" ) ? null : `${label}:`} {value}
       </Typography>
     )
   )

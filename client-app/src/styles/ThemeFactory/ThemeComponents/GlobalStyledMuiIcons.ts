@@ -1,6 +1,6 @@
 import { Components, Theme } from "@mui/material";
 
-const StyledIcons: Components<Theme>["MuiSvgIcon"] = {
+const StyledMuiIcons: Components<Theme>["MuiSvgIcon"] = {
   styleOverrides: {
     root: ({ theme, ownerState }) => ({
       transition: theme.transitions.create(['color', 'transform'], {
@@ -15,4 +15,4 @@ const StyledIcons: Components<Theme>["MuiSvgIcon"] = {
   },
 };
 
-export default StyledIcons;
+export default StyledMuiIcons;

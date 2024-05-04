@@ -23,3 +23,5 @@ export const GlobalThemeComponent = ( props: any ) => {
     `
   ];
 };
+
+export default GlobalThemeComponent;
